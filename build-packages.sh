@@ -8,7 +8,8 @@ export CGO_ENABLED=0
 export ARTIFACT_DIR=built_artifacts/
 mkdir -p $ARTIFACT_DIR
 
-linuxArchs=("386" "amd64" "arm" "armhf" "arm64")
+#linuxArchs=("386" "amd64" "arm" "armhf" "arm64")
+linuxArchs=("armhf")
 export TARGET_OS=linux
 for arch in ${linuxArchs[@]}; do
     unset TARGET_ARM
@@ -17,7 +18,7 @@ for arch in ${linuxArchs[@]}; do
     ## Support for armhf builds 
     if [[ $arch == armhf ]] ; then
         export TARGET_ARCH=arm
-        export TARGET_ARM=7 
+        export TARGET_ARM=6 
     fi
     
     make cloudflared-deb
@@ -32,9 +33,9 @@ for arch in ${linuxArchs[@]}; do
     if [ $arch == "arm64" ]; then
         RPMARCH="aarch64"
     fi
-    make cloudflared-rpm
-    mv cloudflared-$RPMVERSION-1.$RPMARCH.rpm $ARTIFACT_DIR/cloudflared-linux-$RPMARCH.rpm
+    # make cloudflared-rpm
+    # mv cloudflared-$RPMVERSION-1.$RPMARCH.rpm $ARTIFACT_DIR/cloudflared-linux-$RPMARCH.rpm
 
     # finally move the linux binary as well.
-    mv ./cloudflared $ARTIFACT_DIR/cloudflared-linux-$arch
+    # mv ./cloudflared $ARTIFACT_DIR/cloudflared-linux-$arch
 done

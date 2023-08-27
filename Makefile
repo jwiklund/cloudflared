@@ -104,7 +104,7 @@ ifneq ($(TARGET_ARM), )
 	ARM_COMMAND := GOARM=$(TARGET_ARM)
 endif
 
-ifeq ($(TARGET_ARM), 7) 
+ifeq ($(TARGET_ARM), 6) 
 	PACKAGE_ARCH := armhf
 else
 	PACKAGE_ARCH := $(TARGET_ARCH)
